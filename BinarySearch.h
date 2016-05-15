@@ -2,7 +2,7 @@
 
 #include <assert.h>
 
-//×ó±ÕÓÒ±ÕÊ½
+//å·¦é—­å³é—­å¼
 int BinarySearch(int *Array, int x,size_t size)
 {
 	assert(Array);
@@ -12,7 +12,7 @@ int BinarySearch(int *Array, int x,size_t size)
 	while (left <= right)
 	{
 		int mid = left + (right - left) / 2;  
-		//Ã»ÓĞĞ´³Émid = (left + right) / 2ÊÇÎªÁË·ÀÖ¹ÕûÊıÒç³ö
+		//æ²¡æœ‰å†™æˆmid = (left + right) / 2æ˜¯ä¸ºäº†é˜²æ­¢æ•´æ•°æº¢å‡º
 		if (x < Array[mid])
 		{
 			right = mid - 1;
@@ -26,10 +26,10 @@ int BinarySearch(int *Array, int x,size_t size)
 			return Array[mid];
 		}
 	}
-	return -1;   //·µ»Ø -1 ±íÊ¾Ã»ÓĞÕÒµ½
+	return -1;   //è¿”å› -1 è¡¨ç¤ºæ²¡æœ‰æ‰¾åˆ°
 }
 
-//×ó±ÕÓÒ¿ªÊ½
+//å·¦é—­å³å¼€å¼
 int BinarySearch(int *Array, int x, size_t size)
 {
 	assert(Array);
@@ -40,7 +40,7 @@ int BinarySearch(int *Array, int x, size_t size)
 	while (left < right)
 	{
 		int mid = left + (right - left) / 2;   
-		//Ã»ÓĞĞ´³Émid = (left + right) / 2ÊÇÎªÁË·ÀÖ¹ÕûÊıÒç³ö
+		//æ²¡æœ‰å†™æˆmid = (left + right) / 2æ˜¯ä¸ºäº†é˜²æ­¢æ•´æ•°æº¢å‡º
 		if (x < Array[mid])
 		{
 			right = mid;
@@ -54,5 +54,30 @@ int BinarySearch(int *Array, int x, size_t size)
 			return Array[mid];
 		}
 	}
-	return -1;   //·µ»Ø -1 ±íÊ¾Ã»ÓĞÕÒµ½
+	return -1;   //è¿”å› -1 è¡¨ç¤ºæ²¡æœ‰æ‰¾åˆ°
+}
+
+#define _CRT_SECURE_NO_WARNINGS 1
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "BinarySearch.h"
+
+int main()
+{
+	int Num[] = { 1,3,4,6,8,9,23,65,68,89,234,678,890 };
+	int ret = 0;
+	int size = 0;
+	ret = BinarySearch(Num,25,sizeof(Num)/sizeof(Num[0]));
+	if (ret < 0)    //ä¹Ÿå°±æ˜¯è¿”å› -1 ,è¡¨ç¤ºæ²¡æœ‰æ‰¾åˆ°
+	{  
+		printf("This value is inexistence!\n");
+	}
+	else    //æ‰¾åˆ°çš„ç›´æ¥è¿”å›å…¶æ•°å€¼
+	{
+		printf("ret = %d\n", ret);
+	}
+	system("pause");
+	return 0;
 }
