@@ -1,0 +1,91 @@
+#pragma once
+
+template <class T>
+class Stack
+{
+
+public:
+	Stack()        //构造函数
+		:_arr(NULL)
+		, _top(0)
+		, _capacity(0)
+	{}
+	~Stack()          //析构函数
+	{
+		if (_arr)
+		{
+			delete[] _arr;
+		}
+	}
+public:
+	void Push(const T& x)         //插入
+	{
+		_CheckCapacity();
+		_arr[_top++] = x;
+	}
+	void Pop()          //删除
+	{
+		assert(_top > 0);
+		--_top;
+	}
+	size_t Size()         //大小
+	{
+		return _top;
+	}
+	bool Empty()         //判断栈是否为空
+	{
+		//return _top == 0;
+		if (_top <= 0)
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+	T& Top()        //获取栈顶元素
+	{
+		return _arr[_top - 1];
+	}
+
+protected:
+	void _CheckCapacity()
+	{
+		if (_arr == NULL)
+		{
+			_capacity = 5;
+			_arr = new T[_capacity];
+			return;
+		}
+		else if (_top == _capacity)
+		{
+			_capacity *= 2;
+			T* tmp = new T[_capacity];
+			for (size_t i = 0;i < _top;++i)
+			{
+				tmp[i] = _arr[i];
+			}
+			delete[] _arr;
+			_arr = tmp;
+		}
+	}
+protected:
+	T* _arr;
+	size_t _top;
+	size_t _capacity;
+};
+
+void TestStack()     //测试用例
+{
+	Stack<char> s;
+	s.Push('a');
+	s.Push('b');
+	s.Push('c');
+	s.Push('d');
+
+	while (!s.Empty())
+	{
+		cout << s.Top() << " ";
+		s.Pop();
+	}
+	cout << endl;
+}
