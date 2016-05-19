@@ -1,0 +1,105 @@
+#pragma once
+
+template <class T>
+struct Node
+{
+	T _data;
+	Node<T>* _next;
+	Node(const T& x)
+		:_data(x)
+		,_next(NULL)
+	{}
+};
+
+template <class T>
+class Queue
+{
+public:
+	Queue()
+		:_head(NULL)
+		,_tail(NULL)
+		,_size(0)
+	{}
+
+	~Queue()
+	{
+		if (_head)
+		{
+			delete _head;
+		}
+	}
+public:
+	void Push(const T& x)      //在队尾插入数据
+	{
+		if (_head == NULL)       //队列为空的情况
+		{
+			_head = _tail = new Node<T>(x);
+		}
+		else
+		{
+			_tail->_next = new Node<T>(x);
+			_tail = _tail->_next;
+		}
+		++_size;
+	}
+
+	void Pop()      //在队头删除数据
+	{
+		assert(_head);
+		if (_head == _tail)     //队列只有一个数据的情况
+		{
+			delete _head;
+			_head = _tail = NULL;
+		}
+		else
+		{
+			Node<T>* tmp = _head;
+			_head = _head->_next;
+			delete tmp;
+		}
+		--_size;
+	}
+
+	bool Empty()
+	{
+		return _head == NULL;
+	}
+
+	size_t Size()
+	{
+		return _size;
+	}
+
+	T& GetFront()      //获取队头数据
+	{
+		assert(_head);
+		return _head->_data;
+	}
+
+	T& GetTail()      //获取队尾数据
+	{
+		assert(_tail);
+		return _tail->_data;
+	}
+
+protected:
+	Node<T>* _head;
+	Node<T>* _tail;
+	size_t _size;
+};
+
+void TestQueue()      //测试用例
+{
+	Queue<int> q;
+	q.Push(1);
+	q.Push(2);
+	q.Push(3);
+	q.Push(4);
+
+	while (!q.Empty())
+	{
+		cout << q.GetFront() << " ";
+		q.Pop();
+	}
+	cout << endl;
+}
